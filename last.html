@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HINOKAMI PANU</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+            text-shadow: #4ebc52;
+            color: #ffffff;
+            border: #000000;
+            text-shadow: 
+            
+              1px 1px 0px black,  /* เงาด้านขวาล่าง */
+              1px 1px 0px black, /* เงาด้านซ้ายล่าง */
+              1px 1px 0px black, /* เงาด้านขวาบน */
+              1px 1px 0px black; /* เงาด้านซ้ายบน */
+              text-size-adjust: 50px;
+           
+            
+        }
+        .container {
+            max-width: auto;
+            margin: auto;
+            display: none;
+        }
+        input, select {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            height: 100;
+            border: #13a62c;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            background-color: #13a62c;
+            color: white;
+            border: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #25c410;
+            display: block;
+            filter: drop-shadow(0 0 10px#13a62c);
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #a29090;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            background-color: #f44336;
+            color: white;
+            border: 10px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #d32f2f;
+            display: block;
+            filter: drop-shadow(0 0 10px#d32f2f);
+        }
+        
+        .body{
+            background-image:url(b2.gif);
+            background-size: cover;
+
+        }
+        .body-1{
+            background-image:url(r1.jpg);
+            background-size: cover;
+
+        }
+        p{
+           color: #fbfbfb;
+        }
+        h1{
+            color: #4ebc52;
+            border: #000000;
+            
+             color: rgb(255, 255, 255); /* สีของตัวอักษร */
+             text-shadow: 
+              2px 2px 0px black,  /* เงาด้านขวาล่าง */
+             -2px 2px 0px black, /* เงาด้านซ้ายล่าง */
+              2px -2px 0px black, /* เงาด้านขวาบน */
+             -2px -2px 0px black; /* เงาด้านซ้ายบน */
+    
+        }
+    </style>
+    <!-- <link href="./output.css   " rel="stylesheet"> -->
+    
+</head>
+<body class="body">
+    <h1>Multi-Feature Calculators</h1>
+
+    <!-- Category Selection -->
+    <div class="container rounded-md bg-green-600 my-4 border-4 shadow-lg shadow-cyan-500/50" style="display: block;" id="categorySelector" >
+        <b><h2>เลือกหมวดหมู่</h2></b>
+        <select id="category" onchange="switchCategory()">
+            <option value="">-- กรุณาเลือก --</option>
+            <option value="calorie">คำนวณแคลอรี่ที่ใช้ในแต่ละวัน</option>
+            <option value="cat">คำนวณอายุแมว</option>
+            <option value="expense">คำนวณการใช้เงินใน 7 วัน</option>
+        </select>
+    </div>
+
+    <!-- Section: Calorie Calculator -->
+     
+
+        
+    <div class="container mx-auto px-4" id="calorieCalculator"  >
+        <div><h1>คำนวณแคลอรี่ที่ใช้ในแต่ละวัน</h1></div>
+        <form id="calorieForm">
+            <label class="p" for="gender" >เพศ:</label>
+            <select id="gender">
+                <option value="male">ชาย</option>
+                <option value="female">หญิง</option>
+            </select>
+
+            <label for="weight">น้ำหนัก (กก.):</label>
+            <input type="number" id="weight"  placeholder="กรอกน้ำหนัก (กก.)" min="1">
+
+            <label for="height">ส่วนสูง (ซม.):</label>
+            <input type="number" id="height" placeholder="กรอกส่วนสูง (ซม.)" min="1">
+
+            <label for="age">อายุ (ปี):</label>
+            <input type="number" id="age" placeholder="กรอกอายุ (ปี)" min="1">
+
+            <label for="activity">ระดับกิจกรรม:</label>
+            <select id="activity">
+                <option value="1.2">ไม่ออกกำลังกาย</option>
+                <option value="1.375">ออกกำลังกายเล็กน้อย</option>
+                <option value="1.55">ออกกำลังกายปานกลาง</option>
+                <option value="1.725">ออกกำลังกายหนัก</option>
+                <option value="1.9">ออกกำลังกายหนักมาก</option>
+            </select>
+
+            <button type="button" onclick ="calculateCalories()">คำนวณ</button>
+        </form>
+        <div class="result" id="calorieResult"></div>
+        <button class="back-button" onclick="goBack()">ย้อนกลับ</button>
+    </div>
+   
+    <!-- Section: Cat Age Calculator -->
+    <div class="container" id="catCalculator">
+        <b><h2>คำนวณอายุแมว</h2>
+        <p>กรอกอายุแมว (ปี):</p>
+        <input type="number" id="catAge" placeholder="กรอกอายุแมว (ปี)" min="0" step="0.1">
+        <button onclick="calculateCatHumanAge()">คำนวณ</button>
+        <div class="result" id="catResult"></div>
+        <button class="back-button" onclick="goBack()">ย้อนกลับ</button></b>
+    </div>
+
+    <!-- Section: Expense Calculator -->
+    <div class="container" id="expenseCalculator">
+        <h2>คำนวณการใช้เงินใน 7 วัน</h2>
+        <form id="expenseForm">
+            <label for="day1">วันที่ 1:</label>
+            <input type="number" id="day1" placeholder="กรอกจำนวนเงิน (บาท)">
+
+            <label for="day2">วันที่ 2:</label>
+            <input type="number" id="day2" placeholder="กรอกจำนวนเงิน (บาท)">
+
+            <label for="day3">วันที่ 3:</label>
+            <input type="number" id="day3" placeholder="กรอกจำนวนเงิน (บาท)">
+
+            <label for="day4">วันที่ 4:</label>
+            <input type="number" id="day4" placeholder="กรอกจำนวนเงิน (บาท)">
+
+            <label for="day5">วันที่ 5:</label>
+            <input type="number" id="day5" placeholder="กรอกจำนวนเงิน (บาท)">
+
+            <label for="day6">วันที่ 6:</label>
+            <input type="number" id="day6" placeholder="กรอกจำนวนเงิน (บาท)">
+
+            <label for="day7">วันที่ 7:</label>
+            <input type="number" id="day7" placeholder="กรอกจำนวนเงิน (บาท)">
+
+            <button type="button" onclick="calculateTotal()">คำนวณ</button>
+        </form>
+        <div class="result" id="expenseResult"></div>
+        <button class="back-button" onclick="goBack()">ย้อนกลับ</button>
+    </div>
+
+    <script>
+        // Function: Switch Category
+        function switchCategory() {
+            const selectedCategory = document.getElementById("category").value;
+            document.querySelectorAll(".container").forEach(container => container.style.display = "none");
+            if (selectedCategory === "calorie") {
+                document.getElementById("calorieCalculator").style.display = "block";
+            } else if (selectedCategory === "cat") {
+                document.getElementById("catCalculator").style.display = "block";
+            } else if (selectedCategory === "expense") {
+                document.getElementById("expenseCalculator").style.display = "block";
+            } else {
+                document.getElementById("categorySelector").style.display = "block";
+            }
+        }
+
+        // Function: Calorie Calculator
+        function calculateCalories() {
+            const gender = document.getElementById("gender").value;
+            const weight = parseFloat(document.getElementById("weight").value);
+            const height = parseFloat(document.getElementById("height").value);
+            const age = parseInt(document.getElementById("age").value);
+            const activity = parseFloat(document.getElementById("activity").value);
+
+            if (isNaN(weight) || isNaN(height) || isNaN(age) || weight <= 0 || height <= 0 || age <= 0) {
+                document.getElementById("calorieResult").innerHTML = "<p>กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง</p>";
+                return;
+            }
+
+            let bmr;
+            if (gender === "male") {
+                bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+            } else {
+                bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+            }
+
+            const tdee = bmr * activity;
+
+            document.getElementById("calorieResult").innerHTML = `
+                <p>พลังงานที่ใช้ในแต่ละวัน (TDEE): <strong>${tdee.toFixed(2)} แคลอรี่</strong></p>
+                <p>พลังงานพื้นฐาน (BMR): <strong>${bmr.toFixed(2)} แคลอรี่</strong></p>
+            `;
+        }
+
+        // Function: Cat Age Calculator
+        function calculateCatHumanAge() {
+            const catAge = parseFloat(document.getElementById("catAge").value);
+
+            if (isNaN(catAge) || catAge <= 0) {
+                document.getElementById("catResult").innerHTML = "<p>กรุณากรอกอายุแมวที่ถูกต้อง</p>";
+                return;
+            }
+
+            let humanAge;
+            if (catAge <= 1) {
+                humanAge = catAge * 15;
+            } else if (catAge <= 2) {
+                humanAge = 15 + (catAge - 1) * 9;
+            } else {
+                humanAge = 24 + (catAge - 2) * 4;
+            }
+
+            document.getElementById("catResult").innerHTML = `
+                <p>อายุแมว: <strong>${catAge.toFixed(1)} ปี</strong></p>
+                <p>เทียบเท่าอายุคน: <strong>${humanAge.toFixed(1)} ปี</strong></p>
+            `;
+        }
+
+        // Function: Expense Calculator
+        function calculateTotal() {
+            let total = 0;
+            for (let i = 1; i <= 7; i++) {
+                const value = parseFloat(document.getElementById(`day${i}`).value) || 0;
+                total += value;
+            }
+            document.getElementById("expenseResult").innerHTML = `
+                <p>รวมการใช้เงินใน 7 วัน: <strong>${total.toFixed(2)} บาท</strong></p>
+                <p>เฉลี่ยต่อวัน: <strong>${(total / 7).toFixed(2)} บาท</strong></p>
+            `;
+        }
+
+        // Function: Go Back
+        function goBack() {
+            document.querySelectorAll(".container").forEach(container => container.style.display = "none");
+            document.getElementById("categorySelector").style.display = "block";
+        }
+    </script>
+</body>
+</html>
